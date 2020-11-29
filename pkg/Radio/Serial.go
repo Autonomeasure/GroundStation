@@ -1,13 +1,11 @@
 package Radio
 
 import (
-	"bufio"
-	"fmt"
 	"github.com/jacobsa/go-serial/serial"
-	"log"
+	"io"
 )
 
-func OpenSerial(port string, baudrate uint) {
+func OpenSerial(port string, baudrate uint) (io.ReadWriteCloser, error) {
 	options := serial.OpenOptions{
 		PortName: port,
 		BaudRate: baudrate,
@@ -17,15 +15,17 @@ func OpenSerial(port string, baudrate uint) {
 	}
 
 	serialPort, err := serial.Open(options)
-	if err != nil {
-		log.Fatalf("serial.Open: %v", err)
-	}
+	// if err != nil {
+	// 	log.Fatalf("serial.Open: %v", err)
+	// }
 
-	defer serialPort.Close()
-	reader := bufio.NewReader(serialPort)
-	scanner := bufio.NewScanner(reader)
+	return serialPort, err
 
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-	}
+	// defer serialPort.Close()
+	// reader := bufio.NewReader(serialPort)
+	// scanner := bufio.NewScanner(reader)
+
+	// for scanner.Scan() {
+	// 	fmt.Println(scanner.Text())
+	// }
 }

@@ -1,7 +1,7 @@
-package GroundStation
+package main
 
 import "github.com/Autonomeasure/GroundStation/pkg/Radio"
 
 func main() {
-	Radio.OpenSerial("/dev/ttyS0", 9600)
+	Radio.OpenSerial("/dev/serial0", 9600)
 }

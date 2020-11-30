@@ -2,7 +2,7 @@
  * CanSat 2020-2021 Team Autonomeasure - GroundStation | Interface
  * Author: Joep van Dijk
  * First mission:
- *    Our first mission is to be able to land properly, collect data from the BMP280 sensor and send that data to the groundstation at least one time per second.
+ *    Our first mission is to be able to land properly, collect data from the BMP280 sensor and send that data to the ground station at least one time per second.
  *
  * Second mission:
  *    Our second mission is to make a sustainable data collection station.
@@ -48,6 +48,10 @@ func main() {
 	// Keep reading the data
 	for scanner.Scan() {
 		// Print the incoming data
-		fmt.Println(scanner.Text())
+		var input = scanner.Text()
+		fmt.Println(input)
+		// Create a Radio.Packet object and print it
+		var p = Radio.Decode(input)
+		fmt.Printf("%+v\n", p)
 	}
 }

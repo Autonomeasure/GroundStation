@@ -25,7 +25,11 @@ func Decode(input string) Packet {
 	var p Packet
 
 	s := strings.Split(input, ";")
-	fmt.Println(s)
+	//fmt.Println(s)
+
+	for _, i := range s {
+		fmt.Println(i)
+	}
 
 	return p
 }

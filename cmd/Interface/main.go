@@ -47,9 +47,8 @@ func main() {
 
 	// Keep reading the data
 	for scanner.Scan() {
-		// Print the incoming data
+		// Save the incoming data
 		var input = scanner.Text()
-		fmt.Println(input)
 		// Create a Radio.Packet object and print it
 		var p = Radio.Decode(input)
 		fmt.Printf("%+v\n", p)

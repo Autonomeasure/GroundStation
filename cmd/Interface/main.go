@@ -45,12 +45,13 @@ func main() {
 	// Create a scanner for the serial port
 	scanner := bufio.NewScanner(bufio.NewReader(serialPort))
 
-	// Keep reading the data
+//	// Keep reading the data
 	for scanner.Scan() {
 		// Save the incoming data
 		var input = scanner.Text()
 		// Create a Radio.Packet object and print it
 		var p = Radio.Decode(input)
-		fmt.Printf("%+v\n", p)
+		fmt.Printf("ID: %d | mTemp: %f | gx: %f | gy: %f | gz %f\r", p.ID, p.Temperature.MPU, p.Gyroscope.X, p.Gyroscope.Y, p.Gyroscope.Z)
+//fmt.Printf("%+v\n", p)
 	}
 }

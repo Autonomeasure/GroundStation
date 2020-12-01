@@ -13,6 +13,7 @@ type Temperature struct {
 }
 
 type Packet struct {
+	ID				uint32 		`json:"id"`
 	Temperature 	Temperature `json:"temperature"`	// Temperature in Celsius
 	Pressure 		float32 	`json:"pressure"` 		// Pressure in hPa
 	GPS 			GPS.Packet	`json:"gps"`			// A GPS object contains all the information from the GPS module
@@ -30,7 +31,10 @@ func Decode(input string) Packet {
 	// Get all the different items and put it in the Packet object
 	for _, str := range s {
 		splitted := strings.Split(str, "=")
-		if splitted[0] == "tm" {
+		if splitted[0] == "id" {
+			id, _ := strconv.ParseUint(splitted[1], 10, 32)
+			p.ID = uint32(id)
+		} else if splitted[0] == "tm" {
 			temp, _ := strconv.ParseFloat(splitted[1], 32)
 			p.Temperature.MPU = float32(temp)
 			continue

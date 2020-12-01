@@ -27,8 +27,8 @@ func Decode(input string) Packet {
 	s := strings.Split(input, ";")
 	//fmt.Println(s)
 
+	// Get all the different items and put it in the Packet object
 	for _, str := range s {
-		//fmt.Println(i)
 		splitted := strings.Split(str, "=")
 		if splitted[0] == "tm" {
 			temp, _ := strconv.ParseFloat(splitted[1], 32)

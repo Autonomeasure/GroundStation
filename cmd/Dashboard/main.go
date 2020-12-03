@@ -19,10 +19,6 @@ func setupRouter(debug bool) {
 	Memory.Database.Open()
 	// Create the router
 	router := mux.NewRouter().StrictSlash(true)
-	
-	// Server static files
-	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/html/")))
-	router.PathPrefix("/static").Handler(http.FileServer(http.Dir("./static/")))
 
 	// Create the /api route
 	apiRouter := router.PathPrefix("/api").Subrouter()
@@ -40,6 +36,11 @@ func setupRouter(debug bool) {
 	// Add routes to /api/v0/
 	apiV0Router.HandleFunc("", v0.Api)
 	apiV0Router.HandleFunc("/packet", v0.GetPacket).Methods("GET")
+
+	// Serve static files
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
+	//router.PathPrefix("/static").Handler(http.FileServer(http.Dir("./static/")))
+
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

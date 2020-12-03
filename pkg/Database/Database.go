@@ -57,3 +57,14 @@ func (db *Database) SaveRadioPacket(packet Radio.Packet) error {
 	// Everything went correctly, no error found so return nil
 	return nil
 }
+
+func (db *Database) GetRadioPacket(packetID uint32) (Radio.Packet, error) {
+	rows, err := db.DB.Query("SElECT * FROM Data_test WHERE pID = ?", packetID)
+	var p Radio.Packet
+	if err != nil {
+		return p, err
+	}
+	var id int
+	rows.Scan(&id, &p.ID, &p.Temperature.BMP, &p.Temperature.MPU, &p.Pressure, &p.Acceleration.X, &p.Acceleration.Y, &p.Acceleration.Z, &p.Gyroscope.X, &p.Gyroscope.Y, &p.Gyroscope.Z, &p.GPS.Latitude, &p.GPS.Longitude, &p.GPS.Altitude, &p.GPS.Speed)
+	return p, nil
+}

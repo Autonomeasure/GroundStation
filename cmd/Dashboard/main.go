@@ -3,6 +3,8 @@ package main
 import (
 	v0 "github.com/Autonomeasure/GroundStation/cmd/Dashboard/httpHandlers/v0"
 	"github.com/Autonomeasure/GroundStation/cmd/Dashboard/middleware"
+	"github.com/Autonomeasure/GroundStation/pkg/Database"
+	"github.com/Autonomeasure/GroundStation/pkg/Memory"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -13,6 +15,8 @@ func main() {
 }
 
 func setupRouter(debug bool) {
+	Memory.Database = Database.Database{}
+	Memory.Database.Open()
 	// Create the router
 	router := mux.NewRouter().StrictSlash(true)
 

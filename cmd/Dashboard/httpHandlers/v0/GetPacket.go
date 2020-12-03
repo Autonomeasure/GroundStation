@@ -32,15 +32,11 @@ func GetPacket(w http.ResponseWriter, r *http.Request) {
 	} else if l != nil {
 		lastID, _ := strconv.ParseUint(l[0], 10, 32)
 
-		fmt.Println("LastID: ", lastID)
-
 		packets, err := Memory.Database.GetRadioPacketsFrom(uint32(lastID))
 		if err != nil {
 			json.NewEncoder(w).Encode(err)
 			return
 		}
-
-		fmt.Printf("%+v\n", packets)
 
 		json.NewEncoder(w).Encode(packets)
 		return

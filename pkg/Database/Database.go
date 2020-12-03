@@ -2,6 +2,7 @@ package Database
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/Autonomeasure/GroundStation/pkg/Radio"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -59,6 +60,7 @@ func (db *Database) SaveRadioPacket(packet Radio.Packet) error {
 }
 
 func (db *Database) GetRadioPacket(packetID uint32) (Radio.Packet, error) {
+	fmt.Println("Checking packet ID: ", packetID)
 	rows, err := db.DB.Query("SElECT * FROM Data_test WHERE pID = ?", packetID)
 	var p Radio.Packet
 	if err != nil {

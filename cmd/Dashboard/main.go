@@ -35,6 +35,7 @@ func setupRouter(debug bool) {
 
 	// Add routes to /api/v0/
 	apiV0Router.HandleFunc("", v0.Api)
+	apiV0Router.HandleFunc("/packet", v0.GetPacket).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

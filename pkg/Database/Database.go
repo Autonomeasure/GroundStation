@@ -2,7 +2,6 @@ package Database
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/Autonomeasure/GroundStation/pkg/Radio"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -60,7 +59,6 @@ func (db *Database) SaveRadioPacket(packet Radio.Packet) error {
 }
 
 func (db *Database) GetRadioPacket(packetID uint32) (Radio.Packet, error) {
-	fmt.Println("Checking packet ID: ", packetID)
 	rows, err := db.DB.Query("SElECT * FROM Data_test WHERE pID = ?", packetID)
 	var p Radio.Packet
 	if err != nil {
@@ -70,4 +68,21 @@ func (db *Database) GetRadioPacket(packetID uint32) (Radio.Packet, error) {
 	rows.Next()
 	rows.Scan(&id, &p.ID, &p.Temperature.BMP, &p.Temperature.MPU, &p.Pressure, &p.Acceleration.X, &p.Acceleration.Y, &p.Acceleration.Z, &p.Gyroscope.X, &p.Gyroscope.Y, &p.Gyroscope.Z, &p.GPS.Latitude, &p.GPS.Longitude, &p.GPS.Altitude, &p.GPS.Speed)
 	return p, nil
+}
+
+func (db *Database) GetRadioPacketsFrom(lastPacketID uint32) ([]Radio.Packet, error) {
+	rows, err := db.DB.Query("SElECT * FROM Data_test WHERE pID > ?", lastPacketID)
+	var packets []Radio.Packet
+	if err != nil {
+		return packets, err
+	}
+
+	for rows.Next() {
+		var id int
+		var p Radio.Packet
+		rows.Scan(&id, &p.ID, &p.Temperature.BMP, &p.Temperature.MPU, &p.Pressure, &p.Acceleration.X, &p.Acceleration.Y, &p.Acceleration.Z, &p.Gyroscope.X, &p.Gyroscope.Y, &p.Gyroscope.Z, &p.GPS.Latitude, &p.GPS.Longitude, &p.GPS.Altitude, &p.GPS.Speed)
+		packets = append(packets, p)
+	}
+
+	return packets, nil
 }

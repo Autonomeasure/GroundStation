@@ -10,19 +10,39 @@ import (
 
 func GetPacket(w http.ResponseWriter, r *http.Request) {
 	// Get the 'packet' URI parameter
-	product, ok := r.URL.Query()["packet"]
-	if !ok || len(product[0]) < 1 {
+	p, ok1 := r.URL.Query()["packet"]
+	l, ok2 := r.URL.Query()["last"]
+	if !(ok1 && ok2) || len(p[0]) < 1 || len(l[0]) < 1 {
 		// Return HTTP error to the user
-		fmt.Fprintf(w, "{ 'error': true }")
+		fmt.Fprintf(w, "{ \"error\": true }")
 		return
 	}
 
-	pId, _ := strconv.ParseUint(product[0], 10, 32)
+	if p != nil {
+		pId, _ := strconv.ParseUint(p[0], 10, 32)
 
-	packet, err := Memory.Database.GetRadioPacket(uint32(pId))
-	if err != nil {
-		json.NewEncoder(w).Encode(err)
+		packet, err := Memory.Database.GetRadioPacket(uint32(pId))
+		if err != nil {
+			json.NewEncoder(w).Encode(err)
+			return
+		}
+
+		json.NewEncoder(w).Encode(packet)
+		return
+	} else if l != nil {
+		lastID, _ := strconv.ParseUint(l[0], 10, 32)
+
+		packets, err := Memory.Database.GetRadioPacketsFrom(uint32(lastID))
+		if err != nil {
+			json.NewEncoder(w).Encode(err)
+			return
+		}
+
+		json.NewEncoder(w).Encode(packets)
+		return
+	} else {
+		fmt.Fprintf(w, "{ \"error\": true }")
+		return
 	}
 
-	json.NewEncoder(w).Encode(packet)
 }

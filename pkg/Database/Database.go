@@ -41,7 +41,14 @@ func (db *Database) Exec(query string, params ...interface{}) (sql.Result, error
 }
 
 func (db *Database) SaveRadioPacket(packet Radio.Packet) error {
-	_, err := db.Exec("INSERT INTO Data_test ('ID', 'bmpTemp', 'mpuTemp', 'pressure', 'ax', 'ay', 'az', 'gx', 'gy', 'gz', 'latitude', 'longitude', 'altitude', 'gpsSpeed') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", packet.ID, packet.Temperature.BMP, packet.Temperature.MPU, packet.Pressure, packet.Acceleration.X, packet.Acceleration.Y, packet.Acceleration.Z, packet.Gyroscope.X, packet.Gyroscope.Y, packet.Gyroscope.Z, packet.GPS.Latitude, packet.GPS.Longitude, packet.GPS.Altitude, packet.GPS.Speed)
+	statement, err := db.DB.Prepare("INSERT INTO Data_test (pID, bmpTemp, mpuTemp, pressure, ax, ay, az, gx, gy, gz, latitude, longitude, altitude, gpsSpeed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
+
+
+	if err != nil {
+		return err
+	}
+
+	_, err = statement.Exec(packet.ID, packet.Temperature.BMP, packet.Temperature.MPU, packet.Pressure, packet.Acceleration.X, packet.Acceleration.Y, packet.Acceleration.Z, packet.Gyroscope.X, packet.Gyroscope.Y, packet.Gyroscope.Z, packet.GPS.Latitude, packet.GPS.Longitude, packet.GPS.Altitude, packet.GPS.Speed)
 
 	if err != nil {
 		return err

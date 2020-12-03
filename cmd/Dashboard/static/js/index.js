@@ -1,18 +1,31 @@
+let lastID;
+let count;
+
+const getData = async (lastID = 0) => {
+    const res = await fetch('/api/v0/packet?last=' + lastID);
+    const json = await res.json();
+    // console.log(json);
+    lastID = json[json.length - 1].id;
+    return json;
+}
+
 (async () => {
-    let trace1 = {
-        x: [1, 2, 3, 4],
-        y: [10, 15, 13, 17],
-        type: 'scatter'
-    };
+    Plotly.plot('chart', [{
+        y: getData(),
+        type: 'line',
+    }]);
 
-    let trace2 = {
-        x: [1, 2, 3, 4],
-        y: [16, 5, 11, 9],
-        type: 'scatter'
-    };
+    setInterval(() => {
+        let data = getData(lastID);
+        Plotly.extendTraces('chart', { y: [data]}, [data.length - 1]);
+        count++;
 
-    let data = [trace1, trace2];
-
-    Plotly.newPlot('temperatureChart', data);
-
+        if (count > 500) {
+            Plotly.relayout('chart', {
+                xaxis: {
+                    range: [count - 500, count]
+                }
+            });
+        }
+    }, 200)
 })();

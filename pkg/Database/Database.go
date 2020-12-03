@@ -2,6 +2,7 @@ package Database
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/Autonomeasure/GroundStation/pkg/Radio"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -81,6 +82,7 @@ func (db *Database) GetRadioPacketsFrom(lastPacketID uint32) ([]Radio.Packet, er
 		var id int
 		var p Radio.Packet
 		rows.Scan(&id, &p.ID, &p.Temperature.BMP, &p.Temperature.MPU, &p.Pressure, &p.Acceleration.X, &p.Acceleration.Y, &p.Acceleration.Z, &p.Gyroscope.X, &p.Gyroscope.Y, &p.Gyroscope.Z, &p.GPS.Latitude, &p.GPS.Longitude, &p.GPS.Altitude, &p.GPS.Speed)
+		fmt.Printf("%+v\n", p)
 		packets = append(packets, p)
 	}
 

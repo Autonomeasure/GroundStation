@@ -12,7 +12,7 @@ func GetPacket(w http.ResponseWriter, r *http.Request) {
 	// Get the 'packet' URI parameter
 	p, ok1 := r.URL.Query()["packet"]
 	l, ok2 := r.URL.Query()["last"]
-	if !(ok1 && ok2) || len(p[0]) < 1 || len(l[0]) < 1 {
+	if !(ok1 || ok2) {
 		// Return HTTP error to the user
 		fmt.Fprintf(w, "{ \"error\": true }")
 		return

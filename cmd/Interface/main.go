@@ -23,13 +23,18 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/Autonomeasure/GroundStation/pkg/Database"
 	"github.com/Autonomeasure/GroundStation/pkg/Radio"
 	"log"
 )
 
+var database Database.Database
+
 func main() {
 	// Create a connection to the serial port
 	serialPort, err := Radio.OpenSerial("/dev/serial0", 9600)
+
+	database.Open()
 
 	defer func() {
 		e := serialPort.Close()
@@ -45,13 +50,13 @@ func main() {
 	// Create a scanner for the serial port
 	scanner := bufio.NewScanner(bufio.NewReader(serialPort))
 
-//	// Keep reading the data
+	// Keep reading the data
 	for scanner.Scan() {
 		// Save the incoming data
 		var input = scanner.Text()
 		// Create a Radio.Packet object and print it
 		var p = Radio.Decode(input)
-		fmt.Printf("ID: %d | mTemp: %f | gx: %f | gy: %f | gz %f\r", p.ID, p.Temperature.MPU, p.Gyroscope.X, p.Gyroscope.Y, p.Gyroscope.Z)
-//fmt.Printf("%+v\n", p)
+		fmt.Printf("ID: %d | bTemp: %.2f | mTemp: %.2f | pressure: %.2f | gx: %.2f | gy: %.2f | gz %.2f | ax: %.2f | ay: %.2f | az %.2f\r", p.ID, p.Temperature.BMP, p.Temperature.MPU, p.Pressure, p.Gyroscope.X, p.Gyroscope.Y, p.Gyroscope.Z, p.Acceleration.X, p.Acceleration.Y, p.Acceleration.Z)
+		database.SaveRadioPacket(p)
 	}
 }

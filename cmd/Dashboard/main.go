@@ -36,6 +36,7 @@ func setupRouter(debug bool) {
 	// Add routes to /api/v0/
 	apiV0Router.HandleFunc("", v0.Api)
 	apiV0Router.HandleFunc("/packet", v0.GetPacket).Methods("GET")
+	apiV0Router.HandleFunc("/packet/temperature/bmp", v0.GetBMPTemperature).Methods("GET")
 
 	// Serve static files
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))

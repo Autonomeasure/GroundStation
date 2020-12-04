@@ -86,3 +86,17 @@ func (db *Database) GetRadioPacketsFrom(lastPacketID uint32) ([]Radio.Packet, er
 
 	return packets, nil
 }
+
+func (db *Database) GetBMPTemperatureFrom(lastPacketID uint32) ([]float32, []int, error) {
+	rows, err := db.DB.Query("SElECT * FROM Data_test WHERE pID > ?", lastPacketID)
+	var ids []int
+	var bmpTemps []float32
+
+	if err != nil {
+		return bmpTemps, ids, err
+	}
+
+	for rows.Next() {
+
+	}
+}

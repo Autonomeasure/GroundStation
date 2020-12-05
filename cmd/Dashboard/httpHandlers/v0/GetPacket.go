@@ -62,13 +62,20 @@ func GetBMPTemperature(w http.ResponseWriter, r *http.Request) {
 	} else if l != nil {
 		pId, _ := strconv.ParseUint(p[0], 10, 32)
 
-		packet, err := Memory.Database.GetRadioPacket(uint32(pId))
+		bmpTemps, ids, err := Memory.Database.GetBMPTemperatureFrom(uint32(pId))
 		if err != nil {
 			json.NewEncoder(w).Encode(err)
 			return
 		}
 
-		json.NewEncoder(w).Encode(packet)
-		return
+		type Message struct {
+			BMPTemps 	[]float32 	`json:"bmpTemps"`
+			IDs			[]int 		`json:"IDs"`
+		}
+
+		var msg Message
+		msg.BMPTemps = bmpTemps
+		msg.IDs = ids
+		json.NewEncoder(w).Encode(msg)
 	}
 }

@@ -60,9 +60,9 @@ func GetBMPTemperature(w http.ResponseWriter, r *http.Request) {
 	if p != nil {
 
 	} else if l != nil {
-		pId, _ := strconv.ParseUint(p[0], 10, 32)
+		pId, _ := strconv.ParseInt(l[0], 10, 32)
 
-		bmpTemps, ids, err := Memory.Database.GetBMPTemperatureFrom(uint32(pId))
+		bmpTemps, ids, err := Memory.Database.GetBMPTemperatureFrom(int(pId))
 		if err != nil {
 			json.NewEncoder(w).Encode(err)
 			return

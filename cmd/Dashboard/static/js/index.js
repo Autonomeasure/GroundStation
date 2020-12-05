@@ -15,8 +15,9 @@ let count = 0;
     setInterval(async () => {
         data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
         data = await data.json();
-        Plotly.extendTraces('chart', { y: [data['bmpTemps']]}, [data['bmpTemps'].length - 1]);
+        Plotly.extendTraces('chart', { y: [data['bmpTemps']]}, [0]);
         count++;
+        lastID = data['IDs'][data['IDs'].length - 1]
 
         if (count > 500) {
             Plotly.relayout('chart', {

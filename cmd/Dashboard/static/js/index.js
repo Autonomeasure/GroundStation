@@ -2,6 +2,9 @@ let lastID = 0;
 let count = 0;
 
 (async () => {
+    let chart = document.createElement("div");
+    chart.id = "chart";
+    document.getElementsByTagName('body')[0].appendChild(chart);
     let data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
     data = await data.json();
     Plotly.plot('chart', [{

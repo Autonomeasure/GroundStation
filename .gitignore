@@ -1,2 +1,4 @@
 .idea
-cmd/GroundStation/GroundStation
+cmd/Interface/Interface
+cmd/Dashboard/Dashboard
+

@@ -11,12 +11,9 @@ let length = 0;
     Plotly.plot('chart', [{
         y: data['bmpTemps'],
         type: 'line',
-        xaxis: {
-            autorange: true,
-            showgrid: false,
-            zeroline: false,
-            showline: false,
-        }
+	yaxis: {
+		autorange: true,
+	}
     }]);
     count += data['bmpTemps'].length;
 
@@ -32,11 +29,10 @@ let length = 0;
             Plotly.relayout('chart', {
                 xaxis: {
                     range: [count - 500, count],
-                    autorange: true,
-                    showgrid: false,
-                    zeroline: false,
-                    showline: false,
-                }
+                },
+		yaxis: {
+			autorange: true,
+		}
             });
         }
     }, 200)

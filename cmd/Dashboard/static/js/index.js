@@ -1,23 +1,18 @@
-let lastID;
-let count;
-
-const getData = async (lastID = 0) => {
-    const res = await fetch('/api/v0/packet?last=' + lastID);
-    const json = await res.json();
-    // console.log(json);
-    lastID = json[json.length - 1].id;
-    return json;
-}
+let lastID = 0;
+let count = 0;
 
 (async () => {
+    let data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
+    data = await data.json();
     Plotly.plot('chart', [{
-        y: getData(),
+        y: data['bmpTemps'],
         type: 'line',
     }]);
 
-    setInterval(() => {
-        let data = getData(lastID);
-        Plotly.extendTraces('chart', { y: [data]}, [data.length - 1]);
+    setInterval(async () => {
+        data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
+        data = await data.json();
+        Plotly.extendTraces('chart', { y: [data['bmpTemps']]}, [data['bmpTemps'].length - 1]);
         count++;
 
         if (count > 500) {

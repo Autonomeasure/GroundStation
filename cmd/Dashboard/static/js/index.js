@@ -8,7 +8,7 @@ let length = 0;
     document.getElementsByTagName('body')[0].appendChild(chart);
     let data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
     data = await data.json();
-    Plotly.plot('chart', [{
+    Plotly.plot(['chart'], [{
         y: data['bmpTemps'],
         type: 'line',
 	yaxis: {
@@ -20,7 +20,7 @@ let length = 0;
     setInterval(async () => {
         data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
         data = await data.json();
-        Plotly.extendTraces('chart', { y: [data['bmpTemps']]}, [0]);
+        Plotly.extendTraces(['chart'], { y: [data['bmpTemps']]}, [0]);
         // count++;
         lastID = data['IDs'][data['IDs'].length - 1];
         count += data['bmpTemps'].length;

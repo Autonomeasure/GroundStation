@@ -12,6 +12,7 @@ type Database struct {
 
 func (db *Database) Open() error {
 	d, err := sql.Open("mysql", "root:Test123@unix(/var/run/mysqld/mysqld.sock)/CanSat")
+	//d, err := sql.Open("mysql", "root:Test123@tcp(192.168.0.185:3306)/CanSat")
 	if err != nil {
 		return err
 	}

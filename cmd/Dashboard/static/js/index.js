@@ -1,6 +1,5 @@
 let lastID = 0;
 let count = 0;
-let length = 0;
 
 (async () => {
     let chart = document.createElement("div");
@@ -34,5 +33,11 @@ let length = 0;
 		}
             });
         }
-    }, 200)
+    }, 200);
+
+    // const canvas = document.getElementById("gyroscope");
+    // const ctx = canvas.getContext("2d");
+    // ctx.translate(200, 200);
+    // ctx.fillStyle = "#FF0000";
+    // ctx.fillRect(200, 200, 50, 150);
 })();

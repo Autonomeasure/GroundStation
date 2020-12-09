@@ -107,3 +107,10 @@ func (db *Database) GetBMPTemperatureFrom(lastPacketID uint32) ([]float32, []int
 
 	return bmpTemps, ids, nil
 }
+
+func (db *Database) GetPressureFrom(lastPacketID uint32) ([]float32, []int, error) {
+	var ids []int
+	var pressure []float32
+
+	return pressure, ids, nil
+}

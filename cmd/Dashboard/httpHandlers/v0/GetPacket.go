@@ -79,3 +79,7 @@ func GetBMPTemperature(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(msg)
 	}
 }
+
+func GetPressure(w http.ResponseWriter, r *http.Request) {
+
+}

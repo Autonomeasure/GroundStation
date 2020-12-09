@@ -1,5 +1,7 @@
 let lastID = 0;
 let count = 0;
+let lastPressureID = 0;
+let pressureCount = 0;
 
 (async () => {
     let chart = document.createElement("div");
@@ -15,6 +17,21 @@ let count = 0;
 	}
     }]);
     count += data['bmpTemps'].length;
+
+
+    let pressureChart = document.createElement("div");
+    chart.id = "pressureChart";
+    document.getElementsByTagName('body')[0].appendChild(pressureChart);
+    let pressureData = await fetch("/api/v0/packet/pressure?last=" + lastPressureID);
+    pressureData = await pressureData.json();
+    Plotly.plot('pressureChart', [{
+        y: pressureData['pressures'],
+        type: 'line',
+        yaxis: {
+            autorange: true,
+        }
+    }]);
+    pressureCount = pressureData['pressures'].length;
 
     setInterval(async () => {
         data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
@@ -33,11 +50,22 @@ let count = 0;
 		}
             });
         }
-    }, 200);
 
-    // const canvas = document.getElementById("gyroscope");
-    // const ctx = canvas.getContext("2d");
-    // ctx.translate(200, 200);
-    // ctx.fillStyle = "#FF0000";
-    // ctx.fillRect(200, 200, 50, 150);
+        pressureData = await fetch("/api/v0/packet/pressure?last=" + lastPressureID);
+        pressureData = await pressureData.json();
+        Plotly.extendTraces('pressureChart', { y: [pressureData['pressures']]}, [0]);
+        lastPressureID = pressureData['IDs'][data['IDs'].length - 1];
+        pressureCount += pressureData['pressures'].length;
+
+        if (pressureCount > 500) {
+            Plotly.relayout('pressureChart', {
+                xaxis: {
+                    range: [pressureCount - 500, pressureCount],
+                },
+                yaxis: {
+                    autorange: true,
+                }
+            });
+        }
+    }, 200);
 })();

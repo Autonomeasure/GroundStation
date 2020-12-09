@@ -109,8 +109,21 @@ func (db *Database) GetBMPTemperatureFrom(lastPacketID uint32) ([]float32, []int
 }
 
 func (db *Database) GetPressureFrom(lastPacketID uint32) ([]float32, []int, error) {
+	rows, err := db.DB.Query("SElECT pID, pressure FROM Data_test WHERE pID > ?", lastPacketID)
 	var ids []int
 	var pressure []float32
+
+	if err != nil {
+		return pressure, ids, nil
+	}
+
+	for rows.Next() {
+		var temp float32
+		var id int
+		rows.Scan(&id, &temp)
+		ids = append(ids, id)
+		pressure = append(pressure, temp)
+	}
 
 	return pressure, ids, nil
 }

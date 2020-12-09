@@ -81,5 +81,34 @@ func GetBMPTemperature(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetPressure(w http.ResponseWriter, r *http.Request) {
+	// Get the 'packet' URI parameter
+	p, ok1 := r.URL.Query()["packet"]
+	l, ok2 := r.URL.Query()["last"]
+	if !(ok1 || ok2) {
+		// Return HTTP error to the user
+		fmt.Fprintf(w, "{ \"error\": true }")
+		return
+	}
 
+	if p != nil {
+
+	} else if l != nil {
+		pId, _ := strconv.ParseUint(l[0], 10, 32)
+
+		pressures, ids, err := Memory.Database.GetPressureFrom(uint32(pId))
+		if err != nil {
+			json.NewEncoder(w).Encode(err)
+			return
+		}
+
+		type Message struct {
+			Pressures 	[]float32 	`json:"pressures"`
+			IDs			[]int 		`json:"IDs"`
+		}
+
+		var msg Message
+		msg.Pressures = pressures
+		msg.IDs = ids
+		json.NewEncoder(w).Encode(msg)
+	}
 }

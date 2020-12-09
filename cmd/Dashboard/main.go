@@ -41,7 +41,6 @@ func setupRouter(debug bool) {
 
 	// Serve static files
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
-	//router.PathPrefix("/static").Handler(http.FileServer(http.Dir("./static/")))
 
 
 	log.Fatal(http.ListenAndServe(":8080", router))

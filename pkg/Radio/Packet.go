@@ -1,7 +1,6 @@
 package Radio
 
 import (
-	"fmt"
 	"github.com/Autonomeasure/GroundStation/pkg"
 	"github.com/Autonomeasure/GroundStation/pkg/GPS"
 	"strconv"
@@ -36,9 +35,6 @@ func Decode(input string) Packet {
 	p.ID = uint32(id)
 	bmpTemp, _ := strconv.ParseInt(s[1], 10, 32)
 	bmpTempF := float32(bmpTemp) / 100.0
-	fmt.Println(s[0])
-	fmt.Println(bmpTemp)
-	fmt.Println(bmpTempF)
 	p.Temperature.BMP =  bmpTempF
 	mpuTemp, _ := strconv.ParseInt(s[2], 10, 32)
 	mpuTempF := float32(mpuTemp) / 100.0

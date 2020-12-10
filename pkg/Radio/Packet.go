@@ -27,18 +27,20 @@ type Packet struct {
 func Decode(input string) Packet {
 	var p Packet
 
-	fmt.Println([]byte(input))
+	//fmt.Println([]byte(input))
 
 	s := strings.Split(input, ";")
-	fmt.Printf("%+v\n", s)
+	//fmt.Printf("%+v\n", s)
 
 	id, _ := strconv.ParseUint(s[0], 10, 32)
 	p.ID = uint32(id)
 	bmpTemp, _ := strconv.ParseInt(s[1], 10, 32)
 	bmpTempF := float32(bmpTemp) / 100.0
+	fmt.Println("BMPTemp: ", bmpTempF)
 	p.Temperature.BMP =  bmpTempF
 	mpuTemp, _ := strconv.ParseInt(s[2], 10, 32)
 	mpuTempF := float32(mpuTemp) / 100.0
+	fmt.Println("MPUTemp: ", mpuTempF)
 	p.Temperature.MPU =  mpuTempF
 	pressure, _ := strconv.ParseFloat(s[3],32)
 	p.Pressure = float32(pressure)

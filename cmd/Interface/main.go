@@ -22,7 +22,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"github.com/Autonomeasure/GroundStation/pkg/Database"
 	"github.com/Autonomeasure/GroundStation/pkg/Radio"
 	"log"
@@ -54,7 +53,7 @@ func main() {
 	for scanner.Scan() {
 		// Save the incoming data
 		var input = scanner.Text()
-		fmt.Println([]byte(input))
+		//fmt.Println([]byte(input))
 		//fmt.Println(input)
 		// Create a Radio.Packet object and print it
 		/*var p = */Radio.Decode(input)

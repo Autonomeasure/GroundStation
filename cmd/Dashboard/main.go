@@ -37,6 +37,7 @@ func setupRouter(debug bool) {
 	apiV0Router.HandleFunc("", v0.Api)
 	apiV0Router.HandleFunc("/packet", v0.GetPacket).Methods("GET")
 	apiV0Router.HandleFunc("/packet/temperature/bmp", v0.GetBMPTemperature).Methods("GET")
+	apiV0Router.HandleFunc("/packet/temperature/mpu", v0.GetMPUTemperature).Methods("GET")
 	apiV0Router.HandleFunc("/packet/pressure", v0.GetPressure).Methods("GET")
 
 	// Serve static files

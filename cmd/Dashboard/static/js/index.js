@@ -10,25 +10,25 @@ let pressureCount = 0;
     let data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
     data = await data.json();
     Plotly.plot('chart', [{
-        title: {
-            text: 'Temperature in C',
-            font: {
-                family: 'Courier New, monospace',
-                size: 24
-            },
-        },
+        // title: {
+        //     text: 'Temperature in C',
+        //     font: {
+        //         family: 'Courier New, monospace',
+        //         size: 24
+        //     },
+        // },
         y: data['bmpTemps'],
         type: 'line',
 	yaxis: {
 		autorange: true,
-        title: {
-            text: 'Temperature in C',
-            font: {
-                family: 'Courier New, monospace',
-                size: 18,
-                color: '#7f7f7f'
-            }
-        }
+        // title: {
+        //     text: 'Temperature in C',
+        //     font: {
+        //         family: 'Courier New, monospace',
+        //         size: 18,
+        //         color: '#7f7f7f'
+        //     }
+        // }
 	}
     }]);
     count += data['bmpTemps'].length;
@@ -40,25 +40,25 @@ let pressureCount = 0;
     let pressureData = await fetch("/api/v0/packet/pressure?last=" + lastPressureID);
     pressureData = await pressureData.json();
     Plotly.plot('pressureChart', [{
-        title: {
-            text: 'Pressure in Pa',
-            font: {
-                family: 'Courier New, monospace',
-                size: 24
-            },
-        },
+        // title: {
+        //     text: 'Pressure in Pa',
+        //     font: {
+        //         family: 'Courier New, monospace',
+        //         size: 24
+        //     },
+        // },
         y: pressureData['pressures'],
         type: 'line',
         yaxis: {
             autorange: true,
-            title: {
-                text: 'Pressure in Pa',
-                font: {
-                    family: 'Courier New, monospace',
-                    size: 18,
-                    color: '#7f7f7f'
-                }
-            }
+            // title: {
+            //     text: 'Pressure in Pa',
+            //     font: {
+            //         family: 'Courier New, monospace',
+            //         size: 18,
+            //         color: '#7f7f7f'
+            //     }
+            // }
         },
         marker: {
             color: 'rgb(255, 0, 0)'

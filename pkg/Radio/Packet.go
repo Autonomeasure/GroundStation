@@ -59,9 +59,10 @@ func Decode(input string) Packet {
 	p.Gyroscope.Y = float32(gy) / 100.0
 	p.Gyroscope.Z = float32(gz) / 100.0
 	time := s[14]
-	p.Time[0] = time[0]
-	p.Time[1] = time[1]
-	p.Time[2] = time[2]
+	p.Time = []byte(time)
+	//p.Time[0] = string(rune(time)[0])
+	//p.Time[1] = time[1]
+	//p.Time[2] = time[2]
 
 
 

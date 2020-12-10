@@ -20,7 +20,7 @@ let pressureCount = 0;
 
 
     let pressureChart = document.createElement("div");
-    chart.id = "pressureChart";
+    pressureChart.id = "pressureChart";
     document.getElementsByTagName('body')[0].appendChild(pressureChart);
     let pressureData = await fetch("/api/v0/packet/pressure?last=" + lastPressureID);
     pressureData = await pressureData.json();

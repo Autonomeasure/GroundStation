@@ -102,7 +102,7 @@ func GetMPUTemperature(w http.ResponseWriter, r *http.Request) {
 		}
 
 		type Message struct {
-			BMPTemps 	[]float32 	`json:"bmpTemps"`
+			BMPTemps 	[]float32 	`json:"mpuTemps"`
 			IDs			[]int 		`json:"IDs"`
 		}
 

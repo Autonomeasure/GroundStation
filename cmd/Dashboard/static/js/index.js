@@ -9,28 +9,23 @@ let pressureCount = 0;
     document.getElementsByTagName('body')[0].appendChild(chart);
     let data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
     data = await data.json();
-    Plotly.plot('chart', [{
-        // title: {
-        //     text: 'Temperature in C',
-        //     font: {
-        //         family: 'Courier New, monospace',
-        //         size: 24
-        //     },
-        // },
-        y: data['bmpTemps'],
-        type: 'line',
-	yaxis: {
-		autorange: true,
-        // title: {
-        //     text: 'Temperature in C',
-        //     font: {
-        //         family: 'Courier New, monospace',
-        //         size: 18,
-        //         color: '#7f7f7f'
-        //     }
-        // }
-	}
-    }]);
+    let mpuTemperatureData = await fetch("/api/v0/packet/temperature/mpu?last=" + lastID);
+    mpuTemperatureData = await mpuTemperatureData.json()
+    Plotly.plot('chart', [
+        {
+            y: data['bmpTemps'],
+            type: 'line',
+	        yaxis: {
+		        autorange: true,
+	    }
+        }, {
+            y: mpuTemperatureData['mpuTemps'],
+            type: 'line',
+            yaxis: {
+                autorange: true,
+            },
+        }
+    ]);
     count += data['bmpTemps'].length;
 
 
@@ -69,7 +64,9 @@ let pressureCount = 0;
     setInterval(async () => {
         data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
         data = await data.json();
-	Plotly.extendTraces('chart', { y: [data['bmpTemps']]}, [0]);
+        mpuTemperatureData = await fetch('/api/v0/packet/temperature/mpu?last=' + lastID)
+        mpuTemperatureData = await mpuTemperatureData.json();
+	Plotly.extendTraces('chart', { y: [data['bmpTemps'], mpuTemperatureData['bmpTemps']]}, [0, 1]);
         lastID = data['IDs'][data['IDs'].length - 1];
         count += data['bmpTemps'].length;
 
@@ -81,9 +78,9 @@ let pressureCount = 0;
                 xaxis: {
                     range: [count - 500, count],
                 },
-		yaxis: {
-			autorange: true,
-		}
+		        yaxis: {
+			        autorange: true,
+		        }
             });
         }
 

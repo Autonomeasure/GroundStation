@@ -35,7 +35,7 @@ func Decode(input string) Packet {
 	p.Temperature.BMP =  bmpTempF
 	mpuTemp, _ := strconv.ParseInt(s[2], 10, 32)
 	mpuTempF := float32(mpuTemp) / 100.0
-	p.Temperature.BMP =  mpuTempF
+	p.Temperature.MPU =  mpuTempF
 	pressure, _ := strconv.ParseFloat(s[3],32)
 	p.Pressure = float32(pressure)
 	lat, _ := strconv.ParseFloat(s[4],32)
@@ -45,7 +45,7 @@ func Decode(input string) Packet {
 	alt, _ := strconv.ParseFloat(s[6], 32)
 	p.GPS.Altitude = float32(alt)
 	speed, _ := strconv.ParseFloat(s[7], 32)
-	p.GPS.Speed = float32(speed)
+	p.GPS.Speed = float32(speed) / 100.0
 	ax, _ := strconv.ParseInt(s[8], 10, 32)
 	ay, _ := strconv.ParseInt(s[9], 10, 32)
 	az, _ := strconv.ParseInt(s[10], 10, 32)

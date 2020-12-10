@@ -1,6 +1,7 @@
 package Radio
 
 import (
+	"errors"
 	"github.com/Autonomeasure/GroundStation/pkg"
 	"github.com/Autonomeasure/GroundStation/pkg/GPS"
 	"strconv"
@@ -23,13 +24,17 @@ type Packet struct {
 }
 
 // Decode the received message into the Packet struct and return a Packet
-func Decode(input string) Packet {
+func Decode(input string) (Packet, error) {
 	var p Packet
 
 	//fmt.Println([]byte(input))
 
 	s := strings.Split(input, ";")
 	//fmt.Printf("%+v\n", s)
+
+	if len(s) < 14 {
+		return p, errors.New("invalid packet was received")
+	}
 
 	id, _ := strconv.ParseUint(s[0], 10, 32)
 	p.ID = uint32(id)
@@ -114,5 +119,5 @@ func Decode(input string) Packet {
 	//	}
 	//}
 
-	return p
+	return p, nil
 }

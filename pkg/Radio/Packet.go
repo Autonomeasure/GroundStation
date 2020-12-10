@@ -27,6 +27,8 @@ type Packet struct {
 func Decode(input string) Packet {
 	var p Packet
 
+	fmt.Println([]byte(input))
+
 	s := strings.Split(input, ";")
 	fmt.Printf("%+v\n", s)
 

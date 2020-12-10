@@ -1,6 +1,7 @@
 package Radio
 
 import (
+	"fmt"
 	"github.com/Autonomeasure/GroundStation/pkg"
 	"github.com/Autonomeasure/GroundStation/pkg/GPS"
 	"strconv"
@@ -27,6 +28,7 @@ func Decode(input string) Packet {
 	var p Packet
 
 	s := strings.Split(input, ";")
+	fmt.Printf("%+v\n", s)
 
 	id, _ := strconv.ParseUint(s[0], 10, 32)
 	p.ID = uint32(id)

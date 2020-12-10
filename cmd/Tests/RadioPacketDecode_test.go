@@ -9,7 +9,9 @@ import (
 )
 
 func TestRadioPacketDecode(t *testing.T) {
-	var packet = Radio.Decode("0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;9000;1000;AAA;\n")
+	input := "0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;9000;1000;AAA;\n"
+	t.Log("Input string: " + input)
+	var packet = Radio.Decode(input)
 	var testPacket = Radio.Packet{
 		ID: 0,
 		Temperature: Radio.Temperature{
@@ -35,6 +37,10 @@ func TestRadioPacketDecode(t *testing.T) {
 		Time: []byte{'A', 'A', 'A'},
 	}
 
+	t.Logf("Packet: \n%+v\n", packet)
+	t.Logf("TestPacket: \n%+v\n", testPacket)
+
+
 	if !cmp.Equal(packet, testPacket) {
 		t.Error("Radio.Decode was incorrect")
 		t.Error("Input string: 0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;90000;1000;AAA;\n")
@@ -42,5 +48,6 @@ func TestRadioPacketDecode(t *testing.T) {
 		t.Errorf("%+v\n", packet)
 		t.Error("TestPacket: ")
 		t.Errorf("%+v\n", testPacket)
+		t.Failed()
 	}
 }

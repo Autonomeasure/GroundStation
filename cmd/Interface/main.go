@@ -54,14 +54,10 @@ func main() {
 	for scanner.Scan() {
 		// Save the incoming data
 		var input = scanner.Text()
+		fmt.Println(input)
 		// Create a Radio.Packet object and print it
-		var p = Radio.Decode(input)
-		fmt.Printf("ID: %d | bTemp: %.2f | mTemp: %.2f | pressure: %.2f | gx: %.2f | gy: %.2f | gz %.2f | ax: %.2f | ay: %.2f | az %.2f\r", p.ID, p.Temperature.BMP, p.Temperature.MPU, p.Pressure, p.Gyroscope.X, p.Gyroscope.Y, p.Gyroscope.Z, p.Acceleration.X, p.Acceleration.Y, p.Acceleration.Z)
-		//err := database.SaveRadioPacket(p)
-		//if err != nil {
-		//	fmt.Println(err)
-		//	fmt.Println()
-		//}
-		go database.SaveRadioPacket(p)
+		//var p = Radio.Decode(input)
+		//fmt.Printf("ID: %d | bTemp: %.2f | mTemp: %.2f | pressure: %.2f | gx: %.2f | gy: %.2f | gz %.2f | ax: %.2f | ay: %.2f | az %.2f\r", p.ID, p.Temperature.BMP, p.Temperature.MPU, p.Pressure, p.Gyroscope.X, p.Gyroscope.Y, p.Gyroscope.Z, p.Acceleration.X, p.Acceleration.Y, p.Acceleration.Z)
+		//go database.SaveRadioPacket(p)
 	}
 }

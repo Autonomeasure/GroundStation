@@ -11,7 +11,7 @@ let pressureCount = 0;
     data = await data.json();
     let mpuTemperatureData = await fetch("/api/v0/packet/temperature/mpu?last=" + lastID);
     mpuTemperatureData = await mpuTemperatureData.json()
-    Plotly.plot('chart', [
+    await Plotly.newPlot('chart', [
         {
             y: data['bmpTemps'],
             type: 'line',
@@ -34,7 +34,7 @@ let pressureCount = 0;
     document.getElementsByTagName('body')[0].appendChild(pressureChart);
     let pressureData = await fetch("/api/v0/packet/pressure?last=" + lastPressureID);
     pressureData = await pressureData.json();
-    Plotly.plot('pressureChart', [{
+    await Plotly.newPlot('pressureChart', [{
         // title: {
         //     text: 'Pressure in Pa',
         //     font: {
@@ -66,7 +66,7 @@ let pressureCount = 0;
         data = await data.json();
         mpuTemperatureData = await fetch('/api/v0/packet/temperature/mpu?last=' + lastID)
         mpuTemperatureData = await mpuTemperatureData.json();
-	    Plotly.extendTraces(['chart', 'chart'], { y: [data['bmpTemps'], mpuTemperatureData['bmpTemps']] }, [0, 1]);
+	    await Plotly.extendTraces(['chart', 'chart'], { y: [data['bmpTemps'], mpuTemperatureData['bmpTemps']] }, [0, 1]);
         lastID = data['IDs'][data['IDs'].length - 1];
         count += data['bmpTemps'].length;
 
@@ -86,7 +86,7 @@ let pressureCount = 0;
 
         pressureData = await fetch("/api/v0/packet/pressure?last=" + lastPressureID);
         pressureData = await pressureData.json();
-        Plotly.extendTraces('pressureChart', { y: [pressureData['pressures']]}, [0]);
+        await Plotly.extendTraces('pressureChart', { y: [pressureData['pressures']]}, [0]);
         lastPressureID = pressureData['IDs'][data['IDs'].length - 1];
         pressureCount += pressureData['pressures'].length;
 

@@ -29,7 +29,10 @@ let pressureCount = 0;
         type: 'line',
         yaxis: {
             autorange: true,
-        }
+        },
+        marker: {
+            color: 'rgb(255, 0, 0)'
+        },
     }]);
     pressureCount = pressureData['pressures'].length;
 
@@ -42,6 +45,9 @@ let pressureCount = 0;
 
         if (count > 500) {
             Plotly.relayout('chart', {
+                marker: {
+                    color: 'rgb(255, 0, 0)'
+                },
                 xaxis: {
                     range: [count - 500, count],
                 },

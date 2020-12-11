@@ -45,6 +45,7 @@ let temperatureChart;
     });
 
     temperatureCount += bmpTempData['bmpTemps'].length;
+    lastTemperatureID = bmpTempData['IDs'][bmpTempData['IDs'].length - 1];
 
     setInterval(async () => {
         bmpTempData = await getBMPData(lastTemperatureID);

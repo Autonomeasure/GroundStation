@@ -1,9 +1,9 @@
 const getBMPData = async (last = 0) => {
-    return await (await fetch("/api/v0/packet/temperature/bmp")).json()
+    return await (await fetch("/api/v0/packet/temperature/bmp?last=" + last)).json()
 }
 
 const getMPUData = async (last = 0) => {
-    return await (await fetch("/api/v0/packet/temperature/mpu")).json()
+    return await (await fetch("/api/v0/packet/temperature/mpu?last=" + last)).json()
 }
 
 let lastTemperatureID;
@@ -47,8 +47,8 @@ let temperatureChart;
     temperatureCount += bmpTempData['bmpTemps'].length;
 
     setInterval(async () => {
-        bmpTempData = await getBMPData();
-        mpuTempData = await getMPUData();
+        bmpTempData = await getBMPData(lastTemperatureID);
+        mpuTempData = await getMPUData(lastTemperatureID);
 
         Plotly.extendTraces([temperatureChart, temperatureChart], { y: [bmpTempData['bmpTemps'], mpuTempData['mpuTemps']] }, [0, 1]);
         lastTemperatureID = bmpTempData['IDs'][bmpTempData['IDs'].length - 1];

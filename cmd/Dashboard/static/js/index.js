@@ -6,6 +6,7 @@ let pressureCount = 0;
 (async () => {
     let chart = document.createElement("div");
     chart.id = "chart";
+    chart.type = "array";
     document.getElementsByTagName('body')[0].appendChild(chart);
     let data = await fetch('/api/v0/packet/temperature/bmp?last=' + lastID);
     data = await data.json();
@@ -33,6 +34,7 @@ let pressureCount = 0;
 
     let pressureChart = document.createElement("div");
     pressureChart.id = "pressureChart";
+    pressureChart.type = "array";
     document.getElementsByTagName('body')[0].appendChild(pressureChart);
     let pressureData = await fetch("/api/v0/packet/pressure?last=" + lastPressureID);
     pressureData = await pressureData.json();

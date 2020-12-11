@@ -27,12 +27,9 @@ type Packet struct {
 func Decode(input string) (Packet, error) {
 	var p Packet
 
-	//fmt.Println([]byte(input))
-
 	s := strings.Split(input, ";")
-	//fmt.Printf("%+v\n", s)
 
-	if len(s) < 14 {
+	if len(s) < 16 {
 		return p, errors.New("invalid packet was received")
 	}
 

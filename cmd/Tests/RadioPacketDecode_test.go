@@ -56,4 +56,12 @@ func TestRadioPacketDecode(t *testing.T) {
 
 
 	// Check if an invalid input gives the expected error
+	input = "0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;9000;1000;\n"
+	t.Log("Input string: " + input)
+	_, err = Radio.Decode(input)
+	t.Log("err: ", err)
+	if err == nil {
+		t.Error("Invalid input was given but no error returned")
+		t.Failed()
+	}
 }

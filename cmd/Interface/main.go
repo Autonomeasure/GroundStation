@@ -49,6 +49,10 @@ func main() {
 
 	// Create a scanner for the serial port
 	scanner := bufio.NewScanner(bufio.NewReader(serialPort))
+	err = Radio.ConfigureRadioModule(serialPort)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Keep reading the data
 	for scanner.Scan() {

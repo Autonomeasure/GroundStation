@@ -9,9 +9,10 @@ import (
 )
 
 func TestRadioPacketDecode(t *testing.T) {
+	// Check if a normal, valid input gets parsed correctly without any errors
 	input := "0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;9000;1000;AAA;\n"
 	t.Log("Input string: " + input)
-	var packet = Radio.Decode(input)
+	packet, err := Radio.Decode(input)
 	var testPacket = Radio.Packet{
 		ID: 0,
 		Temperature: Radio.Temperature{
@@ -41,13 +42,18 @@ func TestRadioPacketDecode(t *testing.T) {
 	t.Logf("TestPacket: \n%+v\n", testPacket)
 
 
-	if !cmp.Equal(packet, testPacket) {
+	if !cmp.Equal(packet, testPacket) && err == nil {
 		t.Error("Radio.Decode was incorrect")
 		t.Error("Input string: 0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;90000;1000;AAA;\n")
 		t.Error("Packet: ")
 		t.Errorf("%+v\n", packet)
 		t.Error("TestPacket: ")
 		t.Errorf("%+v\n", testPacket)
+		t.Error("Error: ", err)
 		t.Failed()
 	}
+
+
+
+	// Check if an invalid input gives the expected error
 }

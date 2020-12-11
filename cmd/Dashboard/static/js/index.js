@@ -70,7 +70,7 @@ let pressureCount = 0;
         data = await data.json();
         mpuTemperatureData = await fetch('/api/v0/packet/temperature/mpu?last=' + lastID)
         mpuTemperatureData = await mpuTemperatureData.json();
-	Plotly.extendTraces(['chart', 'chart'], { y: [data['bmpTemps'], mpuTemperatureData['bmpTemps']] }, [0, 1]);
+	    Plotly.extendTraces(['chart', 'chart'], { y: [data['bmpTemps'], mpuTemperatureData['bmpTemps']] }, [0, 1]);
         lastID = data['IDs'][data['IDs'].length - 1];
         count += data['bmpTemps'].length;
 

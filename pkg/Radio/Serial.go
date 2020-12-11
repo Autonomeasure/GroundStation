@@ -45,7 +45,7 @@ func ConfigureRadioModule(serialPort io.ReadWriteCloser) error {
 	defer setPin.Input()
 	setPin.Output()
 	setPin.Low()
-	time.Sleep(50)
+	time.Sleep(50 / 1000)
 
 	// Write to the radio module to set the right configuration
 	_, err = serialPort.Write([]byte("WR 434000 1 4 3 0"))
@@ -57,7 +57,7 @@ func ConfigureRadioModule(serialPort io.ReadWriteCloser) error {
 		return err
 	}
 
-	time.Sleep(10)
+	time.Sleep(10 / 1000)
 	setPin.High()
 
 	return nil

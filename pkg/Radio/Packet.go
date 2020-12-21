@@ -65,56 +65,6 @@ func Decode(input string) (Packet, error) {
 	p.Gyroscope.Z = float32(gz) / 100.0
 	time := s[14]
 	p.Time = []byte(time)
-	//p.Time[0] = string(rune(time)[0])
-	//p.Time[1] = time[1]
-	//p.Time[2] = time[2]
-
-
-
-	//// Get all the different items and put it in the Packet object
-	//for _, str := range s {
-	//	splitted := strings.Split(str, "=")
-	//	if splitted[0] == "id" {
-	//		id, _ := strconv.ParseUint(splitted[1], 10, 32)
-	//		p.ID = uint32(id)
-	//	} else if splitted[0] == "tm" {
-	//		temp, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Temperature.MPU = float32(temp)
-	//		continue
-	//	} else if splitted[0] == "tb" {
-	//		temp, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Temperature.BMP = float32(temp)
-	//		continue
-	//	} else if splitted[0] == "p" {
-	//		pressure, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Pressure = float32(pressure)
-	//		continue
-	//	} else if splitted[0] == "ax" {
-	//		ax, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Acceleration.X = float32(ax)
-	//		continue
-	//	} else if splitted[0] == "ay" {
-	//		ay, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Acceleration.Y = float32(ay)
-	//		continue
-	//	} else if splitted[0] == "az" {
-	//		az, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Acceleration.Z = float32(az)
-	//		continue
-	//	} else if splitted[0] == "gx" {
-	//		gx, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Gyroscope.X = float32(gx)
-	//		continue
-	//	} else if splitted[0] == "gy" {
-	//		gy, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Gyroscope.Y = float32(gy)
-	//		continue
-	//	} else if splitted[0] == "gz" {
-	//		gz, _ := strconv.ParseFloat(splitted[1], 32)
-	//		p.Gyroscope.Z = float32(gz)
-	//		continue
-	//	}
-	//}
 
 	return p, nil
 }

@@ -3,7 +3,7 @@ module github.com/Autonomeasure/GroundStation
 go 1.15
 
 require (
-	github.com/J0eppp/go-nmea v0.0.0-20210107141426-df45986d7643
+	github.com/J0eppp/go-nmea v0.0.0-20210122104712-db75293783c2
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/google/go-cmp v0.5.4
 	github.com/gorilla/mux v1.8.0

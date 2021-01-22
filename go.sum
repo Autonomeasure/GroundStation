@@ -4,6 +4,8 @@ github.com/J0eppp/go-nmea v0.0.0-20210107130633-8ef8ad573d7b h1:RBe4jI2Zg7PixWZC
 github.com/J0eppp/go-nmea v0.0.0-20210107130633-8ef8ad573d7b/go.mod h1:wqnK71aDe88eonA/uWmR9JCG885atwIHk+p4eqdCxAc=
 github.com/J0eppp/go-nmea v0.0.0-20210107141426-df45986d7643 h1:Em4iICPJLtVq2w1BA44HFQC59ZkW6okes9c9933iygs=
 github.com/J0eppp/go-nmea v0.0.0-20210107141426-df45986d7643/go.mod h1:8DGPEqV4JTQC0Y8vp8qMdcZkdWpTWnPznbblxyF96j8=
+github.com/J0eppp/go-nmea v0.0.0-20210122104712-db75293783c2 h1:o6xDw/0QT8qIpc5p6ZlzF4xLRXm0SCkYAKw9fJHU3Ys=
+github.com/J0eppp/go-nmea v0.0.0-20210122104712-db75293783c2/go.mod h1:8DGPEqV4JTQC0Y8vp8qMdcZkdWpTWnPznbblxyF96j8=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/armon/consul-api v0.0.0-20180202201655-eb2c6b5be1b6/go.mod h1:grANhF5doyWs3UAsr3K4I6qtAmlQcZDesFNEHPZAzj8=

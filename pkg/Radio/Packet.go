@@ -17,6 +17,7 @@ type Packet struct {
 	ID				uint32 		`json:"id"`
 	Temperature 	Temperature `json:"temperature"`	// Temperature in Celsius
 	Pressure 		float32 	`json:"pressure"` 		// Pressure in hPa
+	BMPAltitude		float32		`json:"bmpAltitude"` 	// Altitude based on the pressure from the BMP module
 	GPS 			GPS.Packet	`json:"gps"`			// A GPS object contains all the information from the GPS module
 	Acceleration 	pkg.Vector3 `json:"acceleration"` 	// Acceleration is an instance of Vector3 containing three axis (xyz)
 	Gyroscope 		pkg.Vector3 `json:"gyroscope"` 		// Gyroscope is an instance of Vector3 containing three axis (xyz)
@@ -29,7 +30,7 @@ func Decode(input string) (Packet, error) {
 
 	s := strings.Split(input, ";")
 
-	if len(s) < 16 {
+	if len(s) < 15 {
 		return p, errors.New("invalid packet was received")
 	}
 
@@ -49,8 +50,8 @@ func Decode(input string) (Packet, error) {
 	p.GPS.Longitude = float32(lon)
 	alt, _ := strconv.ParseFloat(s[6], 32)
 	p.GPS.Altitude = float32(alt)
-	speed, _ := strconv.ParseFloat(s[7], 32)
-	p.GPS.Speed = float32(speed) / 100.0
+	bmpAlt, _ := strconv.ParseFloat(s[7], 32)
+	p.BMPAltitude = float32(bmpAlt)
 	ax, _ := strconv.ParseInt(s[8], 10, 32)
 	ay, _ := strconv.ParseInt(s[9], 10, 32)
 	az, _ := strconv.ParseInt(s[10], 10, 32)
@@ -64,7 +65,12 @@ func Decode(input string) (Packet, error) {
 	p.Gyroscope.Y = float32(gy) / 100.0
 	p.Gyroscope.Z = float32(gz) / 100.0
 	time := s[14]
+
 	p.Time = []byte(time)
+	if len(time) != 4 {
+		//p.Time = []byte{'A', 'A', 'A', 'A'}
+		p.Time = []byte{0, 0, 0, 0}
+	}
 
 	return p, nil
 }

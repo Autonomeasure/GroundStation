@@ -12,6 +12,7 @@ CREATE TABLE Data_test (
     `gy`        FLOAT NOT NULL,
     `latitude`  FLOAT NOT NULL,
     `longitude` FLOAT NOT NULL,
-    `altitude`  FLOAT NOT NULL,
-    `gpsSpeed`  FLOAT NOT NULL
+    `gpsAltitude`  FLOAT NOT NULL,
+    `mpuAltitude`  FLOAT NOT NULL,
+    `time` VARCHAR(4) NOT NULL,
 );

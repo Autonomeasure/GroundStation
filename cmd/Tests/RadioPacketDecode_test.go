@@ -10,7 +10,7 @@ import (
 
 func TestRadioPacketDecode(t *testing.T) {
 	// Check if a normal, valid input gets parsed correctly without any errors
-	input := "0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;9000;1000;AAAA;\n"
+	input := "0;2010;2030;1013.25;0.000000000000;1.000000000000;1000.00;1000.00;170;200;450;18000;9000;1000;AAAA;\n"
 	t.Log("Input string: " + input)
 	packet, err := Radio.Decode(input)
 	var testPacket = Radio.Packet{
@@ -20,11 +20,11 @@ func TestRadioPacketDecode(t *testing.T) {
 			MPU: 20.30,
 		},
 		Pressure: 1013.25,
+		BMPAltitude: 1000.00,
 		GPS: GPS.Packet{
-			Latitude: 0.000000,
-			Longitude: 1.000000,
+			Latitude: 0.000000000000,
+			Longitude: 1.000000000000,
 			Altitude: 1000.00,
-			Speed: 3.40,
 		},
 		Acceleration: pkg.Vector3{
 			X: 1.70,
@@ -44,7 +44,7 @@ func TestRadioPacketDecode(t *testing.T) {
 
 	if !cmp.Equal(packet, testPacket) && err == nil {
 		t.Error("Radio.Decode was incorrect")
-		t.Error("Input string: 0;2010;2030;1013.25;0.000000;1.000000;1000.00;340;170;200;450;18000;90000;1000;AAAA;\n")
+		t.Error("Input string: 0;2010;2030;1013.25;0.000000000000;1.000000000000;1000.00;1000.00;170;200;450;18000;9000;1000;AAAA;\n")
 		t.Error("Packet: ")
 		t.Errorf("%+v\n", packet)
 		t.Error("TestPacket: ")
@@ -64,4 +64,5 @@ func TestRadioPacketDecode(t *testing.T) {
 		t.Error("Invalid input was given but no error returned")
 		t.Failed()
 	}
+	t.Log("Error was handled correctly")
 }

@@ -46,16 +46,18 @@ func main() {
 	}
 
 
-	for true {
-		var buf []byte
-		bytesRead, err := serialPort.Read(buf)
-		fmt.Println("Bytes read: ", bytesRead)
+	buf := make([]byte, 1024)
+
+	for {
+		n, err := serialPort.Read(buf)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
-		for i := range buf {
-			fmt.Printf("%b", buf[i])
+		_, _, err = Radio.Decode(buf, n)
+		if err != nil {
+			fmt.Println(err)
 		}
+
 	}
 
 	//

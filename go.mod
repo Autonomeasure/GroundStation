@@ -8,6 +8,7 @@ require (
 	github.com/google/go-cmp v0.5.4
 	github.com/gorilla/mux v1.8.0
 	github.com/jacobsa/go-serial v0.0.0-20180131005756-15cf729a72d4
+	github.com/pkg/errors v0.8.1
 	github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07
 	github.com/warthog618/gpio v1.0.0
 )
